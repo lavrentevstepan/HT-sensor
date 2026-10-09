@@ -1,0 +1,339 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E10000012C12345600000001 /* MinewBeaconScannerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10000022C12345600000001 /* MinewBeaconScannerApp.swift */; };
+		E10000032C12345600000001 /* MinewHtData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10000042C12345600000001 /* MinewHtData.swift */; };
+		E10000052C12345600000001 /* IBeaconData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10000062C12345600000001 /* IBeaconData.swift */; };
+		E10000072C12345600000001 /* SensorDataPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10000082C12345600000001 /* SensorDataPoint.swift */; };
+		E10000092C12345600000001 /* BeaconDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100000A2C12345600000001 /* BeaconDevice.swift */; };
+		E100000B2C12345600000001 /* MinewPacketParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100000C2C12345600000001 /* MinewPacketParser.swift */; };
+		E100000D2C12345600000001 /* IBeaconParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100000E2C12345600000001 /* IBeaconParser.swift */; };
+		E100000F2C12345600000001 /* BleScannerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10000102C12345600000001 /* BleScannerManager.swift */; };
+		E10000112C12345600000001 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10000122C12345600000001 /* AppTheme.swift */; };
+		E10000132C12345600000001 /* RadarScanIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10000142C12345600000001 /* RadarScanIndicatorView.swift */; };
+		E10000152C12345600000001 /* BeaconCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10000162C12345600000001 /* BeaconCardView.swift */; };
+		E10000172C12345600000001 /* BeaconDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10000182C12345600000001 /* BeaconDetailView.swift */; };
+		E10000192C12345600000001 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100001A2C12345600000001 /* ScannerView.swift */; };
+		E100001B2C12345600000001 /* MinewPacketParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E100001C2C12345600000001 /* MinewPacketParserTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E10000022C12345600000001 /* MinewBeaconScannerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinewBeaconScannerApp.swift; sourceTree = "<group>"; };
+		E10000042C12345600000001 /* MinewHtData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinewHtData.swift; sourceTree = "<group>"; };
+		E10000062C12345600000001 /* IBeaconData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBeaconData.swift; sourceTree = "<group>"; };
+		E10000082C12345600000001 /* SensorDataPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorDataPoint.swift; sourceTree = "<group>"; };
+		E100000A2C12345600000001 /* BeaconDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconDevice.swift; sourceTree = "<group>"; };
+		E100000C2C12345600000001 /* MinewPacketParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinewPacketParser.swift; sourceTree = "<group>"; };
+		E100000E2C12345600000001 /* IBeaconParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBeaconParser.swift; sourceTree = "<group>"; };
+		E10000102C12345600000001 /* BleScannerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BleScannerManager.swift; sourceTree = "<group>"; };
+		E10000122C12345600000001 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		E10000142C12345600000001 /* RadarScanIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadarScanIndicatorView.swift; sourceTree = "<group>"; };
+		E10000162C12345600000001 /* BeaconCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconCardView.swift; sourceTree = "<group>"; };
+		E10000182C12345600000001 /* BeaconDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconDetailView.swift; sourceTree = "<group>"; };
+		E100001A2C12345600000001 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
+		E100001C2C12345600000001 /* MinewPacketParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinewPacketParserTests.swift; sourceTree = "<group>"; };
+		E100001D2C12345600000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E100001E2C12345600000001 /* MinewBeaconScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MinewBeaconScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E100001F2C12345600000001 /* MinewBeaconScannerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MinewBeaconScannerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E10000202C12345600000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E10000212C12345600000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E10000222C12345600000001 = {
+			isa = PBXGroup;
+			children = (
+				E10000232C12345600000001 /* MinewBeaconScanner */,
+				E10000242C12345600000001 /* MinewBeaconScannerTests */,
+				E10000252C12345600000001 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E10000232C12345600000001 /* MinewBeaconScanner */ = {
+			isa = PBXGroup;
+			children = (
+				E10000022C12345600000001 /* MinewBeaconScannerApp.swift */,
+				E100001D2C12345600000001 /* Info.plist */,
+				E10000262C12345600000001 /* Models */,
+				E10000272C12345600000001 /* Parsers */,
+				E10000282C12345600000001 /* Bluetooth */,
+				E10000292C12345600000001 /* Theme */,
+				E100002A2C12345600000001 /* Views */,
+			);
+			path = MinewBeaconScanner;
+			sourceTree = "<group>";
+		};
+		E10000262C12345600000001 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E10000042C12345600000001 /* MinewHtData.swift */,
+				E10000062C12345600000001 /* IBeaconData.swift */,
+				E10000082C12345600000001 /* SensorDataPoint.swift */,
+				E100000A2C12345600000001 /* BeaconDevice.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		E10000272C12345600000001 /* Parsers */ = {
+			isa = PBXGroup;
+			children = (
+				E100000C2C12345600000001 /* MinewPacketParser.swift */,
+				E100000E2C12345600000001 /* IBeaconParser.swift */,
+			);
+			path = Parsers;
+			sourceTree = "<group>";
+		};
+		E10000282C12345600000001 /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				E10000102C12345600000001 /* BleScannerManager.swift */,
+			);
+			path = Bluetooth;
+			sourceTree = "<group>";
+		};
+		E10000292C12345600000001 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				E10000122C12345600000001 /* AppTheme.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		E100002A2C12345600000001 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E10000142C12345600000001 /* RadarScanIndicatorView.swift */,
+				E10000162C12345600000001 /* BeaconCardView.swift */,
+				E10000182C12345600000001 /* BeaconDetailView.swift */,
+				E100001A2C12345600000001 /* ScannerView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E10000242C12345600000001 /* MinewBeaconScannerTests */ = {
+			isa = PBXGroup;
+			children = (
+				E100001C2C12345600000001 /* MinewPacketParserTests.swift */,
+			);
+			path = MinewBeaconScannerTests;
+			sourceTree = "<group>";
+		};
+		E10000252C12345600000001 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E100001E2C12345600000001 /* MinewBeaconScanner.app */,
+				E100001F2C12345600000001 /* MinewBeaconScannerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E100002B2C12345600000001 /* MinewBeaconScanner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E100002C2C12345600000001 /* Build configuration list for PBXNativeTarget "MinewBeaconScanner" */;
+			buildPhases = (
+				E100002D2C12345600000001 /* Sources */,
+				E10000202C12345600000001 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MinewBeaconScanner;
+			productName = MinewBeaconScanner;
+			productReference = E100001E2C12345600000001 /* MinewBeaconScanner.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E100002E2C12345600000001 /* MinewBeaconScannerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E100002F2C12345600000001 /* Build configuration list for PBXNativeTarget "MinewBeaconScannerTests" */;
+			buildPhases = (
+				E10000302C12345600000001 /* Sources */,
+				E10000212C12345600000001 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MinewBeaconScannerTests;
+			productName = MinewBeaconScannerTests;
+			productReference = E100001F2C12345600000001 /* MinewBeaconScannerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E10000312C12345600000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+			};
+			buildConfigurationList = E10000322C12345600000001 /* Build configuration list for PBXProject "MinewBeaconScanner" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E10000222C12345600000001;
+			productRefGroup = E10000252C12345600000001 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E100002B2C12345600000001 /* MinewBeaconScanner */,
+				E100002E2C12345600000001 /* MinewBeaconScannerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E100002D2C12345600000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E10000012C12345600000001 /* MinewBeaconScannerApp.swift in Sources */,
+				E10000032C12345600000001 /* MinewHtData.swift in Sources */,
+				E10000052C12345600000001 /* IBeaconData.swift in Sources */,
+				E10000072C12345600000001 /* SensorDataPoint.swift in Sources */,
+				E10000092C12345600000001 /* BeaconDevice.swift in Sources */,
+				E100000B2C12345600000001 /* MinewPacketParser.swift in Sources */,
+				E100000D2C12345600000001 /* IBeaconParser.swift in Sources */,
+				E100000F2C12345600000001 /* BleScannerManager.swift in Sources */,
+				E10000112C12345600000001 /* AppTheme.swift in Sources */,
+				E10000132C12345600000001 /* RadarScanIndicatorView.swift in Sources */,
+				E10000152C12345600000001 /* BeaconCardView.swift in Sources */,
+				E10000172C12345600000001 /* BeaconDetailView.swift in Sources */,
+				E10000192C12345600000001 /* ScannerView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E10000302C12345600000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E100001B2C12345600000001 /* MinewPacketParserTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		E10000332C12345600000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				ENABLE_TESTABILITY = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E10000342C12345600000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		E10000352C12345600000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_BUNDLE_IDENTIFIER = com.openbeacon.MinewBeaconScanner;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				INFOPLIST_FILE = MinewBeaconScanner/Info.plist;
+			};
+			name = Debug;
+		};
+		E10000362C12345600000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_BUNDLE_IDENTIFIER = com.openbeacon.MinewBeaconScanner;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				INFOPLIST_FILE = MinewBeaconScanner/Info.plist;
+			};
+			name = Release;
+		};
+		E10000372C12345600000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_BUNDLE_IDENTIFIER = com.openbeacon.MinewBeaconScannerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		E10000382C12345600000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_BUNDLE_IDENTIFIER = com.openbeacon.MinewBeaconScannerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E10000322C12345600000001 /* Build configuration list for PBXProject "MinewBeaconScanner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E10000332C12345600000001 /* Debug */,
+				E10000342C12345600000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E100002C2C12345600000001 /* Build configuration list for PBXNativeTarget "MinewBeaconScanner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E10000352C12345600000001 /* Debug */,
+				E10000362C12345600000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E100002F2C12345600000001 /* Build configuration list for PBXNativeTarget "MinewBeaconScannerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E10000372C12345600000001 /* Debug */,
+				E10000382C12345600000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E10000312C12345600000001 /* Project object */;
+}

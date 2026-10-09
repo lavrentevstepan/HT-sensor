@@ -1,0 +1,22 @@
+# Build and cache
+.gradle/
+build/
+app/build/
+ios/.build/
+DerivedData/
+
+# Local configuration
+local.properties
+
+# IDE and OS
+.idea/
+*.iml
+.DS_Store
+*.xcuserstate
+xcuserdata/
+*.ipa
+*.apk
+*.aab
+
+# Logs
+*.log

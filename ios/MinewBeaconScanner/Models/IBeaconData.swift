@@ -1,0 +1,30 @@
+import Foundation
+
+public struct IBeaconData: Equatable {
+    public let uuid: String
+    public let major: Int
+    public let minor: Int
+    public let txPower: Int
+    public let timestamp: Date
+    
+    public init(
+        uuid: String,
+        major: Int,
+        minor: Int,
+        txPower: Int,
+        timestamp: Date = Date()
+    ) {
+        self.uuid = uuid
+        self.major = major
+        self.minor = minor
+        self.txPower = txPower
+        self.timestamp = timestamp
+    }
+    
+    /// Estimates distance in meters using the log-distance path loss formula.
+    public func calculateDistance(rssi: Int) -> Double {
+        guard rssi != 0 && txPower != 0 else { return -1.0 }
+        let ratio = Double(txPower - rssi) / (10.0 * 2.0)
+        return pow(10.0, ratio)
+    }
+}

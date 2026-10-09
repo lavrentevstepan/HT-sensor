@@ -1,0 +1,22 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Center circle (Beacon dot) -->
+    <path
+        android:fillColor="#06B6D4"
+        android:pathData="M54,54m-10,0a10,10 0 1,0 20,0a10,10 0 1,0 -20,0" />
+    <!-- Pulse ring 1 -->
+    <path
+        android:strokeColor="#10B981"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M34,44 A24,24 0 0,1 74,44 M34,64 A24,24 0 0,0 74,64" />
+    <!-- Pulse ring 2 -->
+    <path
+        android:strokeColor="#06B6D4"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:pathData="M24,36 A36,36 0 0,1 84,36 M24,72 A36,36 0 0,0 84,72" />
+</vector>
