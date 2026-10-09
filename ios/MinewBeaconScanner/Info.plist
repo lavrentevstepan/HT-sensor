@@ -2,10 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>CFBundleDevelopmentRegion</key>
+    <string>$(DEVELOPMENT_LANGUAGE)</string>
+    <key>CFBundleExecutable</key>
+    <string>$(EXECUTABLE_NAME)</string>
     <key>CFBundleIdentifier</key>
-    <string>com.openbeacon.MinewBeaconScanner</string>
+    <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+    <key>CFBundleInfoDictionaryVersion</key>
+    <string>6.0</string>
     <key>CFBundleName</key>
-    <string>MinewBeaconScanner</string>
+    <string>$(PRODUCT_NAME)</string>
     <key>CFBundleDisplayName</key>
     <string>Minew S1 Scanner</string>
     <key>CFBundlePackageType</key>
@@ -16,6 +22,8 @@
     <string>1</string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
+    <key>UILaunchScreen</key>
+    <dict/>
     <key>NSBluetoothAlwaysUsageDescription</key>
     <string>Приложение использует Bluetooth для обнаружения маячков Minew S1 и считывания данных температуры и влажности.</string>
     <key>NSBluetoothPeripheralUsageDescription</key>
@@ -24,7 +32,7 @@
     <string>Требуется для обнаружения и расчета расстояния до маячков iBeacon.</string>
     <key>UIRequiredDeviceCapabilities</key>
     <array>
-        <string>armv7</string>
+        <string>arm64</string>
         <string>bluetooth-le</string>
     </array>
     <key>UISupportedInterfaceOrientations</key>
