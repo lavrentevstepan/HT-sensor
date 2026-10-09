@@ -97,38 +97,84 @@ public struct BeaconCardView: View {
                             color: AppTheme.cyanNeon
                         )
                         
+                        let batt = device.effectiveBattery ?? ht.batteryPercentage
                         MetricPillView(
                             icon: "battery.100",
                             label: "Батарея",
-                            value: "\(ht.batteryPercentage)%",
-                            color: AppTheme.batteryColor(ht.batteryPercentage)
+                            value: "\(batt)%",
+                            color: AppTheme.batteryColor(batt)
+                        )
+                    }
+                } else if let battery = device.effectiveBattery {
+                    HStack(spacing: 8) {
+                        MetricPillView(
+                            icon: "battery.100",
+                            label: "Уровень заряда батареи",
+                            value: "\(battery)%",
+                            color: AppTheme.batteryColor(battery)
                         )
                     }
                 }
                 
                 // iBeacon Section
                 if let ibeacon = device.iBeaconData {
-                    HStack {
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text("iBeacon")
-                                .font(.system(size: 11, weight: .bold))
-                                .foregroundColor(AppTheme.purpleAccent)
-                            Text("Major: \(ibeacon.major)  |  Minor: \(ibeacon.minor)")
-                                .font(.system(size: 11, design: .monospaced))
+                    HStack(alignment: .center) {
+                        VStack(alignment: .leading, spacing: 3) {
+                            HStack(spacing: 6) {
+                                Text("iBeacon")
+                                    .font(.system(size: 11, weight: .bold))
+                                    .foregroundColor(AppTheme.purpleAccent)
+                                
+                                if let batt = device.effectiveBattery, device.minewHtData == nil {
+                                    HStack(spacing: 3) {
+                                        Image(systemName: "battery.100")
+                                            .font(.system(size: 10))
+                                        Text("\(batt)%")
+                                            .font(.system(size: 10, weight: .bold))
+                                    }
+                                    .foregroundColor(AppTheme.batteryColor(batt))
+                                    .padding(.horizontal, 5)
+                                    .padding(.vertical, 1)
+                                    .background(AppTheme.batteryColor(batt).opacity(0.12))
+                                    .cornerRadius(4)
+                                }
+                            }
+                            
+                            HStack(spacing: 12) {
+                                Text("Major: \(ibeacon.major)")
+                                    .font(.system(size: 12, weight: .bold, design: .monospaced))
+                                    .foregroundColor(AppTheme.textPrimary)
+                                Text("Minor: \(ibeacon.minor)")
+                                    .font(.system(size: 12, weight: .bold, design: .monospaced))
+                                    .foregroundColor(AppTheme.textPrimary)
+                            }
+                            
+                            Text(ibeacon.uuid)
+                                .font(.system(size: 9, design: .monospaced))
                                 .foregroundColor(AppTheme.textSecondary)
+                                .lineLimit(1)
                         }
                         Spacer()
                         let dist = ibeacon.calculateDistance(rssi: device.rssi)
-                        Text(dist > 0 ? String(format: "Дистанция: ~%.1f м", dist) : "Tx: \(ibeacon.txPower) dBm")
-                            .font(.system(size: 11, weight: .medium))
-                            .foregroundColor(AppTheme.textSecondary)
+                        VStack(alignment: .trailing, spacing: 2) {
+                            Text(dist > 0 ? String(format: "~%.2f м", dist) : "—")
+                                .font(.system(size: 13, weight: .bold))
+                                .foregroundColor(AppTheme.cyanNeon)
+                            Text("дистанция")
+                                .font(.system(size: 9))
+                                .foregroundColor(AppTheme.textMuted)
+                        }
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 6)
+                        .background(AppTheme.cyanNeon.opacity(0.1))
+                        .cornerRadius(8)
                     }
-                    .padding(8)
+                    .padding(10)
                     .background(AppTheme.surfaceCardElevated)
-                    .cornerRadius(8)
+                    .cornerRadius(10)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 8)
-                            .stroke(AppTheme.borderStroke, lineWidth: 1)
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(AppTheme.purpleAccent.opacity(0.35), lineWidth: 1)
                     )
                 }
                 

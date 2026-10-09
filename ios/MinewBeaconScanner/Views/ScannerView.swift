@@ -13,6 +13,9 @@ public struct ScannerView: View {
     @State private var searchQuery: String = ""
     @State private var selectedFilter: FilterType = .all
     @State private var selectedDevice: BeaconDevice? = nil
+    @State private var showUuidSheet: Bool = false
+    @State private var customUuidInput: String = ""
+    @State private var uuidAddError: String? = nil
     
     public init(scannerManager: BleScannerManager) {
         self.scannerManager = scannerManager
@@ -38,6 +41,16 @@ public struct ScannerView: View {
                     
                     Spacer()
                     
+                    // iBeacon UUID Manager Button
+                    Button(action: { showUuidSheet = true }) {
+                        Image(systemName: "antenna.radiowaves.left.and.right")
+                            .font(.system(size: 16))
+                            .foregroundColor(AppTheme.purpleAccent)
+                            .padding(8)
+                            .background(AppTheme.purpleAccent.opacity(0.12))
+                            .cornerRadius(8)
+                    }
+                    
                     if !scannerManager.devices.isEmpty {
                         Button(action: { scannerManager.clearDevices() }) {
                             Image(systemName: "trash")
@@ -57,7 +70,7 @@ public struct ScannerView: View {
                         .foregroundColor(AppTheme.cyanNeon)
                         .font(.system(size: 14))
                     
-                    TextField("Поиск по MAC (напр. AC:23) или имени", text: $searchQuery)
+                    TextField("Поиск по MAC (напр. AC:23), имени или Major:Minor", text: $searchQuery)
                         .font(.system(size: 13))
                         .foregroundColor(AppTheme.textPrimary)
                     
@@ -136,7 +149,7 @@ public struct ScannerView: View {
                             .foregroundColor(AppTheme.textPrimary)
                         
                         Text(scannerManager.isScanning ?
-                             "Поднесите маячок Minew S1 ближе к iPhone.\nУбедитесь, что батарейка установлена." :
+                             "Поднесите маячок Minew S1 ближе к iPhone.\nУбедитесь, что Bluetooth и Геолокация включены." :
                              "Нажмите кнопку «Сканировать» внизу экрана для начала поиска.")
                             .font(.system(size: 13))
                             .foregroundColor(AppTheme.textSecondary)
@@ -187,19 +200,29 @@ public struct ScannerView: View {
             .padding(.bottom, 20)
         }
         .sheet(item: $selectedDevice) { device in
-            // Use fresh instance from manager if available
             let freshDevice = scannerManager.devices.first(where: { $0.id == device.id }) ?? device
             BeaconDetailView(device: freshDevice, onDismiss: { selectedDevice = nil })
+        }
+        .sheet(isPresented: $showUuidSheet) {
+            UuidManagerSheet(
+                scannerManager: scannerManager,
+                onDismiss: { showUuidSheet = false }
+            )
         }
     }
     
     private var filteredDevices: [BeaconDevice] {
         let query = searchQuery.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
         return scannerManager.devices.filter { dev in
+            let majorStr = dev.iBeaconData.map { "\($0.major)" } ?? ""
+            let minorStr = dev.iBeaconData.map { "\($0.minor)" } ?? ""
+            
             let matchesSearch = query.isEmpty ||
                 dev.macAddress.lowercased().contains(query) ||
                 dev.name.lowercased().contains(query) ||
                 dev.displayName.lowercased().contains(query) ||
+                majorStr.contains(query) ||
+                minorStr.contains(query) ||
                 (dev.iBeaconData?.uuid.lowercased().contains(query) == true)
             
             let matchesFilter: Bool
@@ -228,6 +251,131 @@ public struct ScannerView: View {
             return scannerManager.devices.filter { $0.iBeaconData != nil }.count
         case .favorites:
             return scannerManager.devices.filter { $0.isFavorite }.count
+        }
+    }
+}
+
+public struct UuidManagerSheet: View {
+    @ObservedObject public var scannerManager: BleScannerManager
+    public let onDismiss: () -> Void
+    
+    @State private var inputUuid: String = ""
+    @State private var errorMessage: String? = nil
+    
+    public var body: some View {
+        NavigationView {
+            ZStack {
+                AppTheme.bgDark.ignoresSafeArea()
+                
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 18) {
+                        Text("iOS требует предварительного указания UUID для сканирования iBeacon через CoreLocation. Маячки Minew S1 обычно используют заводской UUID Minew BeaconPlus.")
+                            .font(.system(size: 13))
+                            .foregroundColor(AppTheme.textSecondary)
+                        
+                        // Add Custom UUID
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("Добавить пользовательский UUID")
+                                .font(.system(size: 14, weight: .bold))
+                                .foregroundColor(AppTheme.cyanNeon)
+                            
+                            HStack {
+                                TextField("XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX", text: $inputUuid)
+                                    .font(.system(size: 12, design: .monospaced))
+                                    .foregroundColor(AppTheme.textPrimary)
+                                
+                                Button("Добавить") {
+                                    let trimmed = inputUuid.trimmingCharacters(in: .whitespacesAndNewlines)
+                                    if scannerManager.addCustomBeaconUuid(trimmed) {
+                                        inputUuid = ""
+                                        errorMessage = nil
+                                    } else {
+                                        errorMessage = "Некорректный формат UUID"
+                                    }
+                                }
+                                .font(.system(size: 13, weight: .bold))
+                                .foregroundColor(AppTheme.bgDark)
+                                .padding(.horizontal, 14)
+                                .padding(.vertical, 8)
+                                .background(AppTheme.cyanNeon)
+                                .cornerRadius(8)
+                            }
+                            .padding(10)
+                            .background(AppTheme.surfaceCard)
+                            .cornerRadius(10)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(AppTheme.borderStroke, lineWidth: 1)
+                            )
+                            
+                            if let err = errorMessage {
+                                Text(err)
+                                    .font(.system(size: 12))
+                                    .foregroundColor(AppTheme.roseHot)
+                            }
+                        }
+                        
+                        // Active UUIDs List
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Активные UUID для поиска iBeacon (\(scannerManager.monitoredUuids.count))")
+                                .font(.system(size: 14, weight: .bold))
+                                .foregroundColor(AppTheme.textPrimary)
+                            
+                            ForEach(scannerManager.monitoredUuids, id: \.self) { uuid in
+                                HStack {
+                                    VStack(alignment: .leading, spacing: 2) {
+                                        Text(uuidLabel(uuid.uuidString))
+                                            .font(.system(size: 11, weight: .bold))
+                                            .foregroundColor(AppTheme.purpleAccent)
+                                        Text(uuid.uuidString)
+                                            .font(.system(size: 11, design: .monospaced))
+                                            .foregroundColor(AppTheme.textSecondary)
+                                    }
+                                    Spacer()
+                                    Button(action: { UIPasteboard.general.string = uuid.uuidString }) {
+                                        Image(systemName: "doc.on.doc")
+                                            .font(.system(size: 12))
+                                            .foregroundColor(AppTheme.textMuted)
+                                    }
+                                }
+                                .padding(10)
+                                .background(AppTheme.surfaceCard)
+                                .cornerRadius(10)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(AppTheme.borderStroke, lineWidth: 1)
+                                )
+                            }
+                        }
+                    }
+                    .padding(16)
+                }
+            }
+            .navigationTitle("iBeacon UUID")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Готово") { onDismiss() }
+                        .foregroundColor(AppTheme.cyanNeon)
+                }
+            }
+        }
+    }
+    
+    private func uuidLabel(_ uuidStr: String) -> String {
+        switch uuidStr.uppercased() {
+        case "E2C56DB5-DFFB-48D2-B060-D0F5A71096E0":
+            return "Minew BeaconPlus (S1 по умолчанию)"
+        case "FDA50693-A4E2-4FB1-AFCF-C6EB07647825":
+            return "Minew WeChat (Альтернативный)"
+        case "B9407F30-F5F8-466E-AFF9-25556B57FE6D":
+            return "Estimote"
+        case "74278BDA-B644-4520-8F0C-720EAF059935":
+            return "Apple AirLocate"
+        case "2F234454-CF6D-4A0F-ADF2-F4911BA9FFA6":
+            return "Radius Networks"
+        default:
+            return "Пользовательский"
         }
     }
 }

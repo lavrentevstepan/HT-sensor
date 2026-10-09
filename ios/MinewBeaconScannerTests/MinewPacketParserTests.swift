@@ -51,6 +51,44 @@ final class MinewPacketParserTests: XCTestCase {
         XCTAssertEqual(beacon.uuid, "FDA50693-A4E2-4FB1-AFCF-C6EB07647825")
     }
     
+    func testMinewInfoFrameParsing() {
+        // Hex: a1 08 55 aa bb cc dd ee ff + "Beacon" in ascii (42 65 61 63 6f 6e)
+        let hex = "a10855aabbccddeeff426561636f6e"
+        let data = hexStringToData(hex)!
+        
+        let info = MinewPacketParser.parseInfoPayload(data)
+        XCTAssertNotNil(info)
+        guard let parsed = info else { return }
+        
+        XCTAssertEqual(parsed.batteryPercentage, 85)
+        XCTAssertEqual(parsed.macAddress, "AA:BB:CC:DD:EE:FF")
+        XCTAssertEqual(parsed.name, "Beacon")
+    }
+    
+    func testAnyMinewBatteryParsing() {
+        // Hex: a1 05 48 ... (e.g. Minew frame type with 72% battery)
+        let hex = "a105481122"
+        let data = hexStringToData(hex)!
+        
+        let battery = MinewPacketParser.parseAnyMinewBattery(data)
+        XCTAssertEqual(battery, 72)
+    }
+    
+    func testEddystoneTlmBatteryParsing() {
+        // Hex: 20 00 0B B8 (3000 mV => (3000-2200)/800 = 100%)
+        let hex = "20000bb8"
+        let data = hexStringToData(hex)!
+        
+        let battery = MinewPacketParser.parseEddystoneTlmBattery(data)
+        XCTAssertEqual(battery, 100)
+    }
+    
+    func testBatteryServiceDataParsing() {
+        let data = Data([85])
+        let battery = MinewPacketParser.parseBatteryServiceData(data)
+        XCTAssertEqual(battery, 85)
+    }
+    
     private func hexStringToData(_ hex: String) -> Data? {
         var data = Data()
         var tempHex = hex
@@ -63,3 +101,4 @@ final class MinewPacketParserTests: XCTestCase {
         return data
     }
 }
+

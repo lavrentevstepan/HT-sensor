@@ -51,11 +51,12 @@ public struct BeaconDetailView: View {
                                         value: String(format: "%.1f %%", ht.humidity),
                                         color: AppTheme.cyanNeon
                                     )
+                                    let batt = device.effectiveBattery ?? ht.batteryPercentage
                                     MetricPillView(
                                         icon: "battery.100",
                                         label: "Батарея",
-                                        value: "\(ht.batteryPercentage)%",
-                                        color: AppTheme.batteryColor(ht.batteryPercentage)
+                                        value: "\(batt)%",
+                                        color: AppTheme.batteryColor(batt)
                                     )
                                 }
                                 
@@ -92,16 +93,30 @@ public struct BeaconDetailView: View {
                                     .padding(.top, 4)
                                 }
                             }
+                        } else if let batt = device.effectiveBattery {
+                            SectionBoxView(title: "Питание устройства", accentColor: AppTheme.emeraldGreen) {
+                                HStack(spacing: 8) {
+                                    MetricPillView(
+                                        icon: "battery.100",
+                                        label: "Уровень заряда",
+                                        value: "\(batt)%",
+                                        color: AppTheme.batteryColor(batt)
+                                    )
+                                }
+                            }
                         }
                         
                         // SECTION 2: iBeacon Telemetry
                         if let ib = device.iBeaconData {
                             SectionBoxView(title: "Пакет iBeacon (Apple Profile)", accentColor: AppTheme.purpleAccent) {
+                                if let batt = device.effectiveBattery {
+                                    DetailParamRow(label: "Заряд батареи", value: "\(batt)%")
+                                }
+                                DetailParamRow(label: "Major", value: "\(ib.major)")
+                                DetailParamRow(label: "Minor", value: "\(ib.minor)")
                                 DetailParamRow(label: "UUID", value: ib.uuid, onCopy: {
                                     UIPasteboard.general.string = ib.uuid
                                 })
-                                DetailParamRow(label: "Major", value: "\(ib.major)")
-                                DetailParamRow(label: "Minor", value: "\(ib.minor)")
                                 DetailParamRow(label: "Tx Power (1м)", value: "\(ib.txPower) dBm")
                                 
                                 let dist = ib.calculateDistance(rssi: device.rssi)

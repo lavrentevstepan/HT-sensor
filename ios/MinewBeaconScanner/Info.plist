@@ -30,6 +30,8 @@
     <string>Приложение использует Bluetooth для сканирования BLE маячков.</string>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>Требуется для обнаружения и расчета расстояния до маячков iBeacon.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Требуется для обнаружения и мониторинга маячков iBeacon.</string>
     <key>UIRequiredDeviceCapabilities</key>
     <array>
         <string>arm64</string>

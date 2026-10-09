@@ -5,6 +5,12 @@ public struct BeaconDevice: Identifiable, Equatable {
         if let ht = minewHtData, !ht.macInFrame.isEmpty {
             return ht.macInFrame
         }
+        if !macAddress.isEmpty && macAddress.contains(":") {
+            return macAddress
+        }
+        if let ib = iBeaconData {
+            return "ibeacon-\(ib.uuid)-\(ib.major)-\(ib.minor)"
+        }
         return peripheralId.uuidString
     }
     
@@ -16,6 +22,7 @@ public struct BeaconDevice: Identifiable, Equatable {
     public var minewHtData: MinewHtData?
     public var iBeaconData: IBeaconData?
     public var minewName: String?
+    public var batteryLevel: Int?              // Battery percentage from Info, TLM, Battery service or GATT
     public var rawServiceDataHex: [String: String]
     public var rawManufacturerDataHex: String
     public var history: [SensorDataPoint]
@@ -31,6 +38,7 @@ public struct BeaconDevice: Identifiable, Equatable {
         minewHtData: MinewHtData? = nil,
         iBeaconData: IBeaconData? = nil,
         minewName: String? = nil,
+        batteryLevel: Int? = nil,
         rawServiceDataHex: [String: String] = [:],
         rawManufacturerDataHex: String = "",
         history: [SensorDataPoint] = [],
@@ -45,11 +53,16 @@ public struct BeaconDevice: Identifiable, Equatable {
         self.minewHtData = minewHtData
         self.iBeaconData = iBeaconData
         self.minewName = minewName
+        self.batteryLevel = batteryLevel
         self.rawServiceDataHex = rawServiceDataHex
         self.rawManufacturerDataHex = rawManufacturerDataHex
         self.history = history
         self.isFavorite = isFavorite
         self.packetCount = packetCount
+    }
+    
+    public var effectiveBattery: Int? {
+        return minewHtData?.batteryPercentage ?? batteryLevel
     }
     
     public var isMinewS1: Bool {
@@ -67,6 +80,9 @@ public struct BeaconDevice: Identifiable, Equatable {
         }
         if isMinewS1 {
             return "Minew S1"
+        }
+        if let ib = iBeaconData {
+            return "iBeacon [\(ib.major):\(ib.minor)]"
         }
         return "BLE Beacon"
     }
